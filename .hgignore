@@ -4,6 +4,6 @@ Release/*
 ipch/*
 output/*
 syntax: glob
-digitizer test.opensdf
-digitizer test.sdf
-digitizer test.suo
+Digitizer Input.opensdf
+Digitizer Input.sdf
+Digitizer Input.suo

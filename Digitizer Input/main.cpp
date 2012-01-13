@@ -47,89 +47,12 @@ using std::bad_alloc;
 #include <StopWatch.h>
 
 
-
-template<typename StoredType>
-class DisplayList
-{
-public:
-
-	/***************************
-	* contructors & destructor *
-	***************************/
-
-	inline DisplayList()															// DisplayList default constructor
-	{
-		// do nothing
-	} // end DisplayList default constructor
-
-
-	inline DisplayList(const DisplayList &original)										// DisplayList copy constructor
-		:iList(original.iList)
-	{
-		// empty body
-	} // end DisplayList copy constructor
-
-
-	inline DisplayList(StoredType List)												// DisplayList constructor
-		:iList(List)
-	{
-		// empty body
-	} // end DisplayList constructor
-
-
-	inline ~DisplayList()															// DisplayList destructor
-	{
-		// empty body
-	} // end DisplayList destructor
-
-
-
-
-	/************
-	* operators *
-	************/
-
-	inline DisplayList &operator = (const DisplayList &original)							// operator =
-	{
-		iList = original.iList;
-		return *this;
-	} // end function operator =
-
-
-	/*******************
-	* member functions *
-	*******************/
-
-	inline DisplayList &setList(StoredType List)												// setList
-	{
-		iList = List;
-		return *this;
-	} // end function setList
-
-
-private:
-
-	/***************
-	* data members *
-	***************/
-
-	StoredType iList;
-
-}; // end class DisplayList
-
-
-
-
-
-
-
-
 LRESULT CALLBACK windowProcedure(WindowHandle window,UINT message,WPARAM argW, LPARAM argL)
 {
 	return DefWindowProc(window,message,argW,argL);
 }
 
-// main
+
 int main(int argc , char **argv)
 {
 	wofstream properties("output/properties.txt");

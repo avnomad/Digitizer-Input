@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4768D2A3-78A3-42AD-84D1-EBFA4FD2FD36}</ProjectGuid>
-    <RootNamespace>digitizertest</RootNamespace>
+    <RootNamespace>DigitizerInput</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
