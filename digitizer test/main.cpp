@@ -124,37 +124,46 @@ private:
 
 
 
-
-void intTrower(){throw 0;}										// intTrower
+LRESULT CALLBACK windowProcedure(WindowHandle window,UINT message,WPARAM argW, LPARAM argL)
+{
+	return DefWindowProc(window,message,argW,argL);
+}
 
 // main
 int main(int argc , char **argv)
 {
-	wofstream properties("c:/output/properties.txt");
+	wofstream properties("output/properties.txt");
 	properties<<std::boolalpha;
-	ofstream output("c:/output/digitizer_log.txt");
-	ofstream mean("c:/output/mean.txt");
+	ofstream output("output/digitizer_log.txt");
+	ofstream mean("output/mean.txt");
 	StopWatch timer("ms");
 
+	WNDCLASS windowClassAttributes;
 
-	glutInit(&argc,argv);
-	glutInitWindowPosition(640,640);
-	glutInitWindowSize(32,32);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutCreateWindow("Digitizer Test");
+	windowClassAttributes.cbClsExtra = 0;
+	windowClassAttributes.cbWndExtra = 0;
+	windowClassAttributes.hbrBackground = nullptr;
+	windowClassAttributes.hCursor = nullptr;
+	windowClassAttributes.hIcon = nullptr;
+	windowClassAttributes.hInstance = GetModuleHandle(nullptr);
+	windowClassAttributes.lpfnWndProc = windowProcedure;
+	windowClassAttributes.lpszClassName = "nullclass";
+	windowClassAttributes.lpszMenuName = nullptr;
+	windowClassAttributes.style = 0;
 
-	glMatrixMode(GL_PROJECTION);
-	gluOrtho2D(-1,1,-1,1);
-	glutDisplayFunc(intTrower);
-	try
-	{
-		glutMainLoop();
-	}
-	catch(int)
-	{
-		// do nothing
-	} // end catch
-	WindowHandle mainWindow = FindWindow(0,"Digitizer Test");
+	if(!RegisterClass(&windowClassAttributes))
+		cerr << "Could not register class!" << endl;
+
+
+
+	WindowHandle mainWindow = CreateWindow("nullclass","Test Window", WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,
+											nullptr,nullptr,GetModuleHandle(nullptr),nullptr);
+
+	if(!mainWindow)
+		cerr << "Null window handle!" << endl;
+
+	ShowWindow(mainWindow,SW_NORMAL);
+	UpdateWindow(mainWindow);
 
 	DigitizerState oldState;
 	double sum = 0;
@@ -214,8 +223,8 @@ int main(int argc , char **argv)
 
 	output.close();
 	mean.close();
-	system("start c:/output/mean.txt");
-	system("start c:/output/digitizer_log.txt");
+	system("start output/mean.txt");
+	system("start output/digitizer_log.txt");
 	system("PAUSE");
 	return 0;
 } // end function main
